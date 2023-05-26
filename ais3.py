@@ -935,59 +935,59 @@ def main():
     plt.show()
 
 
-import seaborn as sns
-sns.heatmap(cm,
+    import seaborn as sns
+    sns.heatmap(cm,
             annot=True, fmt=".4g")
-plt.ylabel('Prediction',fontsize=13)
-plt.xlabel('Actual',fontsize=13)
-plt.title('Confusion Matrix',fontsize=17)
-plt.show()
-
-from sklearn.metrics import confusion_matrix
-from sklearn.metrics import ConfusionMatrixDisplay
-from sklearn.metrics import multilabel_confusion_matrix, ConfusionMatrixDisplay
-import matplotlib.pyplot as plt
-
-confusion_matrices = multilabel_confusion_matrix(y_test, y_pred)
-for confusion_matrix_ in confusion_matrices:
-    disp = ConfusionMatrixDisplay(confusion_matrix_, display_labels=y_test)
-    disp.plot(include_values=True, cmap="viridis", ax=None, xticks_rotation="vertical")
+    plt.ylabel('Prediction',fontsize=13)
+    plt.xlabel('Actual',fontsize=13)
+    plt.title('Confusion Matrix',fontsize=17)
     plt.show()
 
+    from sklearn.metrics import confusion_matrix
+    from sklearn.metrics import ConfusionMatrixDisplay
+    from sklearn.metrics import multilabel_confusion_matrix, ConfusionMatrixDisplay
+    import matplotlib.pyplot as plt
 
-random_ship = X_test.sample(1)
-random_ship
+    confusion_matrices = multilabel_confusion_matrix(y_test, y_pred)
+    for confusion_matrix_ in confusion_matrices:
+        disp = ConfusionMatrixDisplay(confusion_matrix_, display_labels=y_test)
+        disp.plot(include_values=True, cmap="viridis", ax=None, xticks_rotation="vertical")
+        plt.show()
 
-print (estimator(random_ship,y_test))
+
+    random_ship = X_test.sample(1)
+    random_ship
+
+    print (estimator(random_ship,y_test))
 
 #scaler = RobustScaler()
 
-X_test_scaled = pd.DataFrame(scaler.transform(X_f))
+    X_test_scaled = pd.DataFrame(scaler.transform(X_f))
 #random_ship = X_test_scaled.sample(1)
 #    random_ship
 
 #print (estimator(random_ship,y_test_f))
-y_pred_f = lgbm_final.predict(X_test_scaled)
-report = classification_report(y_f, y_pred_f)
-print(f"model training complete...")
-accuracy = accuracy_score(y_f, y_pred_f)
-print(f"Accuracy: {accuracy}")
-print(" ")
-print(report)
+    y_pred_f = lgbm_final.predict(X_test_scaled)
+    report = classification_report(y_f, y_pred_f)
+    print(f"model training complete...")
+    accuracy = accuracy_score(y_f, y_pred_f)
+    print(f"Accuracy: {accuracy}")
+    print(" ")
+    print(report)
 
 
-import pandas as pd
+    import pandas as pd
 
 #other data with same model
 #df_final= pd.read_csv("ais/aisdk-2023-04-19.csv", nrows=100000)
 
-df_final= pd.read_csv("ais/aisdk-2023-05-11.csv", nrows=500000)
+    df_final= pd.read_csv("ais/aisdk-2023-05-11.csv", nrows=500000)
 
-df_final.head()
+    df_final.head()
 
 
 
-df_final.groupby(['Ship type'])['MMSI'].count()
+    df_final.groupby(['Ship type'])['MMSI'].count()
 
 
 #df_final = df_final[(df_final["Ship type"] != "Undefined")]
@@ -1000,32 +1000,32 @@ df_final.groupby(['Ship type'])['MMSI'].count()
 
 #df_final = df_final[(df_final["Ship type"] != "Pilot")]
 
-df_final.info()
+    df_final.info()
 
 #df = df.dropna()
 
-df_final.shape
+    df_final.shape
 
-X,y, X_train, X_test, y_train, y_test, df_final = prepare_dat_ais3(df_final)
+    X,y, X_train, X_test, y_train, y_test, df_final = prepare_dat_ais3(df_final)
 
-df_final["Ship type"].value_counts()
+    df_final["Ship type"].value_counts()
 
-df_final.groupby(['Ship type'])['sogmean'].count()
+    df_final.groupby(['Ship type'])['sogmean'].count()
 
-random_ship = X_f.sample(1)
-random_ship
+    random_ship = X_f.sample(1)
+    random_ship
 
-print (estimator(random_ship,y))
+    print (estimator(random_ship,y))
 
-X_test
+    X_test
 
 #plot trajectory
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
+    import matplotlib.pyplot as plt
+    import numpy as np
+    import pandas as pd
 
 
-def load_data(file_path):
+    def load_data(file_path):
     """
     import trajectory data
     :return: trajectory data
@@ -1035,78 +1035,78 @@ def load_data(file_path):
 
 
     #file_path = "ais/aisdk-2023-04-19.csv"
-    data = pd.read_csv(file_path, usecols=['# Timestamp', 'MMSI', 'Latitude', 'Longitude'])
-    data.rename(columns={'Longitude': 'long', 'Latitude': 'lat', '# Timestamp': 't', 'MMSI': 'mmsi'}, inplace=True)
-    data['long'] = data['long'].map(lambda x: x / 600000.0)
-    data['lat'] = data['lat'].map(lambda x: x / 600000.0)
-    return data
+        data = pd.read_csv(file_path, usecols=['# Timestamp', 'MMSI', 'Latitude', 'Longitude'])
+        data.rename(columns={'Longitude': 'long', 'Latitude': 'lat', '# Timestamp': 't', 'MMSI': 'mmsi'}, inplace=True)
+        data['long'] = data['long'].map(lambda x: x / 600000.0)
+        data['lat'] = data['lat'].map(lambda x: x / 600000.0)
+        return data
 
 
-if __name__ == '__main__':
-    trajectories = load_data('ais/aisdk-2023-04-19.csv')
-    params = {'axes.titlesize': 'large',
+    if __name__ == '__main__':
+        trajectories = load_data('ais/aisdk-2023-04-19.csv')
+        params = {'axes.titlesize': 'large',
               'legend.fontsize': 14,
               'legend.handlelength': 3}
-    plt.rcParams.update(params)
+        plt.rcParams.update(params)
 
-    for shipmmsi, dt in trajectories.groupby('mmsi'):
-        plt.plot(dt['long'].values, dt['lat'].values, color='green', linewidth=0.5)
+        for shipmmsi, dt in trajectories.groupby('mmsi'):
+            plt.plot(dt['long'].values, dt['lat'].values, color='green', linewidth=0.5)
 
-    plt.yticks(fontproperties='Times New Roman', size=12)
-    plt.xticks(fontproperties='Times New Roman', size=12)
-    plt.xlabel('Longitude', fontdict={'family': 'Times New Roman', 'size': 14})
-    plt.ylabel('Latitude', fontdict={'family': 'Times New Roman', 'size': 14})
-    plt.title('Preprocessed Trajectories', fontdict={'family': 'Times New Roman', 'size': 14})
-    plt.ticklabel_format(useOffset=False, style='plain')
-    plt.grid(True)
-    plt.tight_layout()
-    plt.show()
+        plt.yticks(fontproperties='Times New Roman', size=12)
+        plt.xticks(fontproperties='Times New Roman', size=12)
+        plt.xlabel('Longitude', fontdict={'family': 'Times New Roman', 'size': 14})
+        plt.ylabel('Latitude', fontdict={'family': 'Times New Roman', 'size': 14})
+        plt.title('Preprocessed Trajectories', fontdict={'family': 'Times New Roman', 'size': 14})
+        plt.ticklabel_format(useOffset=False, style='plain')
+        plt.grid(True)
+        plt.tight_layout()
+        plt.show()
 
 
 
     #drawtrajectory
-    import os
-    import pandas as pd
-    import numpy as np
-    import webbrowser as wb
-    import folium
-    from folium.plugins import HeatMap, MiniMap, MarkerCluster
+        import os
+        import pandas as pd
+        import numpy as np
+        import webbrowser as wb
+        import folium
+        from folium.plugins import HeatMap, MiniMap, MarkerCluster
 
 
     # draw a heatmap
-    def draw_heatmap(map):
-        data = (
+        def draw_heatmap(map):
+            data = (
                 np.random.normal(size=(100, 3)) *
                 np.array([[1, 1, 1]]) +
                 np.array([[30.9, 122.52, 1]])
-        ).tolist()
-        HeatMap(data).add_to(map)
+            ).tolist()
+            HeatMap(data).add_to(map)
 
 
     # add minimap
-    def draw_minimap(map):
-        minimap = MiniMap(toggle_display=True,
+        def draw_minimap(map):
+            minimap = MiniMap(toggle_display=True,
                           tile_layer='Stamen Watercolor',
                           position='topleft',
                           width=100,
                           height=100)
-        map.add_child(minimap)
+            map.add_child(minimap)
 
 
-    def draw_circlemarker(loc, spd, cog, map):
-        tip = 'Coordinates:' + str(loc) + "\t" + 'Speed:' + str(spd) + '\t' + 'COG:' + str(cog)
-        folium.CircleMarker(
-            location=loc,
-            radius=3.6,
-            color="blueviolet",
-            stroke=True,
-            fill_color='white',
-            fill=True,
-            weight=1.5,
-            fill_opacity=1.0,
-            opacity=1,
-            tooltip=tip
-        ).add_to(map)
+        def draw_circlemarker(loc, spd, cog, map):
+            tip = 'Coordinates:' + str(loc) + "\t" + 'Speed:' + str(spd) + '\t' + 'COG:' + str(cog)
+            folium.CircleMarker(
+                location=loc,
+                radius=3.6,
+                color="blueviolet",
+                stroke=True,
+                fill_color='white',
+                fill=True,
+                weight=1.5,
+                fill_opacity=1.0,
+                opacity=1,
+                tooltip=tip
+            ).add_to(map)
 
 
     # draw a small information marker on the map
