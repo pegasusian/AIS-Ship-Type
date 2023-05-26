@@ -1018,8 +1018,6 @@ df_final.groupby(['Ship type'])['sogmean'].count()
 random_ship = X_f.sample(1)
 random_ship
 
-random_ship =
-
 print (estimator(random_ship,y))
 
 X_test
