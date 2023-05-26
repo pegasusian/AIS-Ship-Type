@@ -825,51 +825,51 @@ def estimator(sample, y):
 
 def main():
 
-#df= pd.read_csv("AIS-Ship_classification--main/AIS_UNACORN.csv")
-#df= pd.read_csv("AIS-Ship_classification--main/ais_data.csv")
+    #df= pd.read_csv("AIS-Ship_classification--main/AIS_UNACORN.csv")
+    #df= pd.read_csv("AIS-Ship_classification--main/ais_data.csv")
 
-df= pd.read_csv("ais/aisdk-2023-04-19.csv", nrows=2000000)
+    df= pd.read_csv("ais/aisdk-2023-04-19.csv", nrows=2000000)
 
-df_20= pd.read_csv("ais/aisdk-2023-04-20.csv", nrows=2000000)
+    df_20= pd.read_csv("ais/aisdk-2023-04-20.csv", nrows=2000000)
 
-df_21 = pd.read_csv("ais/aisdk-2023-04-21.csv", nrows=2000000)
+    df_21 = pd.read_csv("ais/aisdk-2023-04-21.csv", nrows=2000000)
 
-df_22 = pd.read_csv("ais/aisdk-2023-04-22.csv", nrows=2000000)
+    df_22 = pd.read_csv("ais/aisdk-2023-04-22.csv", nrows=2000000)
 
-df_test = pd.read_csv("ais/aisdk-2023-04-23.csv", nrows=4000000)
+    df_test = pd.read_csv("ais/aisdk-2023-04-23.csv", nrows=4000000)
 
-df = pd.concat([df,df_20, df_21, df_22])
-
-
-df.reset_index(drop=True, inplace=True)
+    df = pd.concat([df,df_20, df_21, df_22])
 
 
-df.head()
+    df.reset_index(drop=True, inplace=True)
 
-df.tail()
 
-df.info
+    df.head()
+
+    df.tail()
+
+    df.info
 
 
 
 #X,y, X_train, X_test, y_train, y_test = prepare_dat_ais2(df)
 #X,y, X_train, X_test, y_train, y_test = prepare_dat_ais1(df)
 
-X,y, X_train, X_test, y_train, y_test, df, scaler = prepare_dat_ais3(df)
+    X,y, X_train, X_test, y_train, y_test, df, scaler = prepare_dat_ais3(df)
 
-X_f,y_f, X_train_f, X_test_f, y_train_f, y_test_f, df_f = prepare_dat_ais3(df_test,scale=False)
+    X_f,y_f, X_train_f, X_test_f, y_train_f, y_test_f, df_f = prepare_dat_ais3(df_test,scale=False)
 
-df.groupby(['Ship type'])['sogmean'].count()
+    df.groupby(['Ship type'])['sogmean'].count()
 
-df.describe().T
+    df.describe().T
 
 
 #df_f.groupby(['Ship type']).agg({"sogmax":"mean"}).head(20)
 
 
-df_f.describe().T
+    df_f.describe().T
 
-X.info()
+    X.info()
 
 #base_models(X, y)
 #best_models = hyperparameter_optimization(X, y)
@@ -879,14 +879,14 @@ X.info()
 #best_models = hyperparameter_optimization(X_f, y_f)
 #voting_clf = voting_classifier(best_models, X_f, y_f)
 
-base_models(X_train, y_train)
-best_models = hyperparameter_optimization(X_train, y_train)
-voting_clf = voting_classifier(best_models, X_train, y_train)
+    base_models(X_train, y_train)
+    best_models = hyperparameter_optimization(X_train, y_train)
+    voting_clf = voting_classifier(best_models, X_train, y_train)
 
 
 #join with final series
 
-lgbm_params = {'max_depth': [2,4,6, 8,10],
+    lgbm_params = {'max_depth': [2,4,6, 8,10],
                     'learning_rate':[0.05,0.1, 0.2, 0.3],
                     'n_estimators':[10, 20, 30, 40, 50, 100, 200, 300, 400],
                      'colsample_bytree':[0.3, 0.5, 0.7, 1]}
@@ -923,19 +923,19 @@ lgbm_params = {'max_depth': [2,4,6, 8,10],
     plt.show()
 
 # create confusion matrix
-cm = confusion_matrix(y_test, y_pred)
+    cm = confusion_matrix(y_test, y_pred)
 
 # plot confusion matrix
-plt.imshow(cm, cmap=plt.cm.Blues)
-plt.title("Confusion Matrix")
-plt.colorbar()
-tick_marks = np.arange(len(set(y)))
-plt.xticks(tick_marks, set(y), rotation=90)
-plt.yticks(tick_marks, set(y))
-plt.xlabel('Predicted Label')
-plt.ylabel('True Label')
-plt.plot(include_values=True)
-plt.show()
+    plt.imshow(cm, cmap=plt.cm.Blues)
+    plt.title("Confusion Matrix")
+    plt.colorbar()
+    tick_marks = np.arange(len(set(y)))
+    plt.xticks(tick_marks, set(y), rotation=90)
+    plt.yticks(tick_marks, set(y))
+    plt.xlabel('Predicted Label')
+    plt.ylabel('True Label')
+    plt.plot(include_values=True)
+    plt.show()
 
 
 import seaborn as sns
