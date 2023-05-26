@@ -1026,12 +1026,12 @@ def main():
 
 
     def load_data(file_path):
-    """
-    import trajectory data
-    :return: trajectory data
-    df= pd.read_csv("ais/aisdk-2023-04-19.csv")
-    df.head()
-    """
+    #"""
+    #import trajectory data
+    #:return: trajectory data
+    #df= pd.read_csv("ais/aisdk-2023-04-19.csv")
+    #df.head()
+    #"""
 
 
     #file_path = "ais/aisdk-2023-04-19.csv"
