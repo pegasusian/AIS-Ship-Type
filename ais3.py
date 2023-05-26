@@ -1,6 +1,3 @@
-
-
-
 import datetime
 
 import numpy as np # Linear Algebra
