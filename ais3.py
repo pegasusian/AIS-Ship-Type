@@ -959,7 +959,7 @@ for confusion_matrix_ in confusion_matrices:
 
 
 random_ship = X_test.sample(1)
-    random_ship
+random_ship
 
 print (estimator(random_ship,y_test))
 
@@ -971,12 +971,12 @@ X_test_scaled = pd.DataFrame(scaler.transform(X_f))
 
 #print (estimator(random_ship,y_test_f))
 y_pred_f = lgbm_final.predict(X_test_scaled)
-    report = classification_report(y_f, y_pred_f)
-    print(f"model training complete...")
-    accuracy = accuracy_score(y_f, y_pred_f)
-    print(f"Accuracy: {accuracy}")
-    print(" ")
-    print(report)
+report = classification_report(y_f, y_pred_f)
+print(f"model training complete...")
+accuracy = accuracy_score(y_f, y_pred_f)
+print(f"Accuracy: {accuracy}")
+print(" ")
+print(report)
 
 
 import pandas as pd
@@ -1016,7 +1016,7 @@ df_final["Ship type"].value_counts()
 df_final.groupby(['Ship type'])['sogmean'].count()
 
 random_ship = X_f.sample(1)
-    random_ship
+random_ship
 
 random_ship =
 
